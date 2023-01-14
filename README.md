@@ -1,6 +1,6 @@
 # discourse-homepage-feature-component
 
-Theme inspired by [Read more on our Meta community.](https://meta.discourse.org/t/homepage-feature-component/144264)
+Theme inspired by [discourse-homepage-feature-component.](https://meta.discourse.org/t/homepage-feature-component/144264)
 
 By default the theme will:
 
