@@ -3,198 +3,48 @@ html.homepage-featured-topics {
     margin-bottom: 1.5em;
   }
 }
-
-.featured-topic-wrapper {
-  margin-bottom: 3em;
-  text-align: center;
-  border-bottom: 1px solid $primary-low;
-  position: relative;
-
-  .spinner {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 80px;
-    @media screen and (max-width: 450px) {
-      top: 70px;
+.featured-topics {
+  display: flex;
+  flex-wrap: wrap;
+  .featured-topic {
+    padding-bottom: 2em;
+    a {
+      font-weight: 400;
+      color: var(--primary);
     }
-    margin-left: auto;
-    margin-right: auto;
-  }
-  @media screen and (max-width: 450px) {
-    margin-top: 1em;
-  }
-  h2 {
-    border-bottom: 1px solid $primary-low;
-    padding-bottom: 0.5em;
-    margin-bottom: 1.5em;
-  }
-  .featured-topics {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-
-    .featured-topic {
-      flex: 1 1 30%;
-      max-width: 500px;
+    &-title {
+      padding-bottom: 1.5em;
+    }
+    &-excerpt {
+      @include line-clamp(2);
+      color: var(--primary-high);
+      margin-bottom: 1em;
+    }
+    .discourse-tag {
+      background-color: #fff;
+      padding: 0;
+      font-size: 0.9em;
+    }
+    .badge-category-bg {
+      width: 5px;
+    }
+    .badge-category-parent-bg {
+      width: 5px;
+    }
+    &-header {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      justify-content: center;
-
-      @media screen and (min-width: 451px) {
-        margin: 0 1.25em;
-        &:first-of-type:not(:last-of-type) {
-          margin-left: 0;
-        }
-        &:last-of-type:not(:first-of-type) {
-          margin-right: 0;
-        }
-      }
-
-      @media screen and (max-width: 999px) {
-        &:nth-of-type(4) {
-          margin-right: 0;
-        }
-        &:nth-of-type(n + 5) {
-          display: none;
-        }
-      }
-
-      @media screen and (max-width: 800px) {
-        &:nth-of-type(3) {
-          margin-right: 0;
-        }
-        &:nth-of-type(n + 4) {
-          display: none;
-        }
-      }
-
-      @media screen and (max-width: 600px) {
-        width: 100%;
-        &:nth-of-type(2) {
-          margin-right: 0;
-        }
-        &:nth-of-type(n + 3) {
-          display: none;
-        }
-      }
-
-      @media screen and (max-width: 450px) {
-        width: 100%;
-        &:nth-of-type(n + 2) {
-          display: none;
-        }
-      }
-      h3 {
-        margin: 0;
-        padding: 1em 0 1.5em;
-        font-size: $font-up-2;
-        padding: 0.5em 1em 1em 1em a {
-          display: -webkit-box;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          word-wrap: break-word;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-        }
-      }
-      .featured-topic-image {
-        height: 200px;
-        max-width: 450px;
-        width: 100%;
-        background-size: cover;
-        background-position: center center;
-        a {
-          display: block;
-          width: 100%;
-          height: 100%;
-        }
-      }
+      gap: 10px;
+    }
+    &-date {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
   }
-
-  //same effect till max-width 600px
-  &.-mobile-stacked,
-  &.-mobile-horizontal {
-    .featured-topics {
-      justify-content: flex-start;
-      @media screen and (max-width: 999px) {
-        flex-direction: row;
-        gap: 1.25em;
-        padding-bottom: 1rem; //spacing for scroll on mobile
-        overflow-x: scroll;
-        .featured-topic {
-          flex-shrink: 0;
-          margin: 0;
-          &:nth-of-type(n + 5) {
-            display: flex;
-          }
-        }
-      }
-
-      @media screen and (max-width: 800px) {
-        .featured-topic {
-          flex-basis: 45%;
-          &:nth-of-type(n + 4) {
-            display: flex;
-          }
-        }
-      }
-    }
-  }
-
-  @media screen and (max-width: 600px) {
-    &.-mobile-stacked {
-      .featured-topics {
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
-        .featured-topic {
-          flex-basis: 100%;
-          margin: 0;
-          &:nth-of-type(n + 3) {
-            display: flex;
-          }
-          &:nth-of-type(n + 2) {
-            display: flex;
-          }
-
-          h3 {
-            padding-top: 0.25em;
-          }
-        }
-      }
-    }
-    &.-mobile-horizontal {
-      .featured-topics {
-        .featured-topic {
-          flex-basis: 75%;
-
-          &:nth-of-type(n + 3) {
-            display: flex;
-          }
-          &:nth-of-type(n + 2) {
-            display: flex;
-          }
-        }
-      }
-    }
-  }
-  @media screen and (max-width: 400px) {
-    &.-mobile-horizontal {
-      .featured-topics {
-        .featured-topic {
-          flex-basis: 85%;
-        }
-      }
-    }
-  }
-}
-
-body:not(.staff) {
-  .tag-drop li[data-name="#{$featured-tag}"],
-  [data-tag-name="#{$featured-tag}"] {
-    display: none;
+  .category-name {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding-bottom: 1em;
   }
 }

@@ -1,0 +1,15 @@
+@media only screen and (max-width: 768px) {
+  .featured-topics {
+    flex-wrap: wrap;
+  }
+  .featured-topic {
+    flex: 0 0 100%;
+    border-top: 1px var(--primary-low-mid) solid;
+    &-header {
+      padding-top: 10px;
+    }
+    .featured-topic-excerpt {
+      display: none;
+    }
+  }
+}
