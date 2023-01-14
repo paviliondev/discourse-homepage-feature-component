@@ -5,7 +5,7 @@ Theme inspired by [discourse-homepage-feature-component.](https://meta.discourse
 By default the theme will:
 
 - Feature the 5 most popular topics of all time.
-- Not be disabled for mobile devices
+- Be disabled for mobile devices
 - Have "Trending"" as default title
 
 It needs this component installed to display excerpts of topics [discourse-topic-excerpts](https://github.com/discourse/discourse-topic-excerpts)
