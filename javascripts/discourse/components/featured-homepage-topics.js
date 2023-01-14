@@ -1,5 +1,6 @@
 import discourseComputed from "discourse-common/utils/decorators";
 import Component from "@ember/component";
+import { next } from "@ember/runloop";
 import I18n from "I18n";
 import { inject as service } from "@ember/service";
 import Topic from "discourse/models/topic";
@@ -9,49 +10,48 @@ const FEATURED_CLASS = "featured-homepage-topics";
 
 export default Component.extend({
   classNameBindings: ["featured-homepage-topics"],
-  router: service(),
+  router: service("router"),
+  isLoading: true,
   titleElement: null,
   featuredTagTopics: null,
+
+  init() {
+    this._super();
+    this.set("isLoading", true);
+    this._getBanner();
+    this._checkClass();
+  },
 
   _getBanner() {
     if (this.isDestroying || this.isDestroyed) {
       return;
     }
     let sortOrder = settings.sort_by_created ? "created" : "activity";
-    if (settings.featured_tag) {
-      this.store
-        .findFiltered("topicList", {
-          filter: "latest",
-          params: {
-            tags: [`${settings.featured_tag}`],
-            order: sortOrder,
-          },
-        })
-        .then((topicList) => {
-          let featuredTagTopics = [];
 
-          topicList.topics.forEach((topic) =>
-            topic.image_url ? featuredTagTopics.push(Topic.create(topic)) : ""
-          );
-
-          this.set(
-            "featuredTagTopics",
-            featuredTagTopics.slice(0, settings.number_of_topics)
-          );
+    this.store
+      .findFiltered("topicList", {
+        filter: settings.topic_source,
+        params: {
+          order: sortOrder,
+        },
+      })
+      .then((topicList) => {
+        let featuredTagTopics = [];
+        topicList.topics.forEach((topic) => {
+          featuredTagTopics.push(Topic.create(topic));
         });
-    }
+        this.set(
+          "featuredTagTopics",
+          featuredTagTopics.slice(0, settings.number_of_topics)
+        );
+        next(this, () => this.set("isLoading", false));
+      });
   },
 
   _checkClass() {
     if (!this.showHere) {
       document.querySelector("body").classList.remove(FEATURED_CLASS);
     }
-  },
-
-  init() {
-    this._super(...arguments);
-    this._getBanner();
-    this._checkClass();
   },
 
   didInsertElement() {
@@ -63,8 +63,15 @@ export default Component.extend({
     document.querySelector("body").classList.remove(FEATURED_CLASS);
   },
 
-  @discourseComputed("router.currentRoute", "router.currentRouteName")
-  showHere(currentRoute, currentRouteName) {
+  @discourseComputed(
+    "site.mobileView",
+    "router.currentRoute",
+    "router.currentRouteName"
+  )
+  showHere(isMobile, currentRoute, currentRouteName) {
+    if (isMobile && !settings.display_mobile) {
+      return false;
+    }
     let showHere;
 
     if (currentRoute) {
@@ -112,19 +119,6 @@ export default Component.extend({
       return true;
     } else {
       return false;
-    }
-  },
-
-  get mobileStyle() {
-    if (
-      settings.show_all_always &&
-      settings.mobile_style === "stacked_on_smaller_screens"
-    ) {
-      return "-mobile-stacked";
-    } else if (settings.show_all_always) {
-      return "-mobile-horizontal";
-    } else {
-      return;
     }
   },
 });
