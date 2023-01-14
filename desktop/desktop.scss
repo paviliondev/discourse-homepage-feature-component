@@ -1,5 +1,8 @@
 .featured-topic-wrapper > h2 {
   padding-bottom: 0.5em;
+  @media (max-width: 768px) {
+    padding-bottom: 0;
+  }
 }
 .featured-topics {
   display: flex;
@@ -8,6 +11,9 @@
   align-items: stretch;
   padding-top: 1.5em;
   border-top: 1px var(--primary-low-mid) solid;
+  @media (max-width: 768px) {
+    border-top: none;
+  }
   .featured-topic {
     display: flex;
     flex-direction: column;
@@ -27,9 +33,16 @@
       .discourse-tag {
         padding: 8px 0;
       }
+      @media (max-width: 768px) {
+        padding-top: 1em;
+        padding-left: 2em;
+        flex: 0 0 100%;
+        max-width: 100%;
+        min-width: 100%;
+      }
     }
     &:nth-of-type(-n + 2) {
-      flex: 1 0 calc(50% - 1em);
+      flex: 1 0 calc(50% - 1.5em);
 
       .featured-topic-title {
         font-size: 2em;
@@ -38,6 +51,15 @@
         display: flex;
         gap: 10px;
         align-items: center;
+      }
+      @media (max-width: 768px) {
+        border-top: 1px var(--primary-low-mid) solid;
+        flex: 0 0 100%;
+        padding-left: 2em;
+        padding-top: 1em;
+        &-header {
+          padding-top: 10px;
+        }
       }
     }
     &:nth-of-type(2) {
@@ -52,6 +74,11 @@
         height: 90%;
         margin-top: auto;
         margin-bottom: auto;
+      }
+      @media (max-width: 768px) {
+        &::after {
+          border-left: none;
+        }
       }
     }
     &:nth-of-type(4) {
