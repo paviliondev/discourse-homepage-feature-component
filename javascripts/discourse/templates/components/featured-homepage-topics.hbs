@@ -8,20 +8,43 @@
             <div class="featured-topics">
               {{#each featuredTagTopics as |t|}}
                 <div class="featured-topic">
-                  <div
-                    class="featured-topic-image"
-                    style={{html-safe
-                      (concat "background-image: url(" t.image_url ")")
-                    }}
-                  >
-                    {{! template-lint-disable no-invalid-link-text }}
-                    <a
-                      href="/t/{{t.slug}}/{{t.id}}/{{t.last_read_post_number}}"
-                    ></a>
+                  <div>
+
+                    <div class="featured-category-link">
+                      {{category-link t.category}}
+                    </div>
+                    <h3 class="featured-topic-title">
+                      {{topic-link t}}
+                    </h3>
                   </div>
-                  <h3>
-                    {{topic-link t}}
-                  </h3>
+                  <div>
+
+                    {{#if t.hasExcerpt}}
+                      <div class="featured-topic-excerpt">
+                        {{html-safe t.excerpt}}
+                      </div>
+                    {{/if}}
+                    <div class="featured-topic-details">
+
+                      {{#each t.tags as |tag|}}
+                        <div class="discourse-tags featured-topic-tags">
+                          <a
+                            href={{concat "/tags/" tag}}
+                            data-tag-name={{tag.tag}}
+                            class="discourse-tag box featured-topic-tag"
+                          >{{tag}}</a>
+                        </div>
+                      {{/each}}
+                      <div class="featured-topic-header">
+                        {{d-icon "far-eye"}}
+                        {{t.views}}
+
+                        <span class="topic-date featured-topic-date">{{d-icon
+                            "far-clock"
+                          }}{{~format-date t.createdAt format="tiny"}}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               {{/each}}
             </div>
