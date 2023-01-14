@@ -1,2 +1,5 @@
 en:
   featured_topic_title: ""
+  theme_metadata:
+    settings:
+      display_mobile: Display featured topics on mobile devices?
